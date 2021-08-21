@@ -23,15 +23,11 @@ func routes(_ app: Application) throws {
             database: Environment.get("DB_NAME")!
         ),
         as: .psql)
-
-    app.migrations.add(AddColumnSkuTillToppingId())
     
     app.logger.logLevel = .debug
     app.http.server.configuration.hostname = serverHostname
-    
     app.http.server.configuration.port = port
     
-    try app.autoMigrate().wait()
   
     try app.register(collection: ProductsController())
     
